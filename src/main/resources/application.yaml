@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: NotificationBackend
+    config:
+      import: optional:file:.env[.properties]
+
+  mail:
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    protocol: ${EMAIL_PROTOCOL}
+    properties:
+      mail:
+        debug: ${EMAIL_DEBUG}
+        smtp:
+          auth: ${EMAIL_SMTPAUTH}
+          timeout: ${EMAIL_TIMEOUT}
+          starttls:
+            enable: ${EMAIL_STARTTLS}
+firebase:
+  admin-json-path: ${FIREBASE_ADMIN_JSON_PATH}
+

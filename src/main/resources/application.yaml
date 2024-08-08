@@ -22,6 +22,9 @@ firebase:
   admin-json-path: ${FIREBASE_ADMIN_JSON_PATH}
 
 kafka:
+  backoff:
+    interval: 99000
+    max_failure: 5
   email-consumer:
     bootstrap-servers: ${KAFKA_SERVER[0]}, ${KAFKA_SERVER[1]}, ${KAFKA_SERVER[2]}
     default-topic: ${KAFKA_CONSUMER_TOPIC_EMAIL}

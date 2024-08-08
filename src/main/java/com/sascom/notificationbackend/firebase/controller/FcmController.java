@@ -1,6 +1,6 @@
 package com.sascom.notificationbackend.firebase.controller;
 
-import com.sascom.notificationbackend.firebase.application.FirebaseMessageSender;
+import com.sascom.notificationbackend.firebase.application.FcmSender;
 import com.sascom.notificationbackend.global.dto.NotificationMessageDto;
 import com.sascom.notificationbackend.global.kafka.producer.KafkaProducer;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/firebase")
 @RequiredArgsConstructor
-public class FirebaseController {
-    private final FirebaseMessageSender messageSender;
+public class FcmController {
+    private final FcmSender messageSender;
     private final KafkaProducer kafkaProducer;
 
     @PostMapping

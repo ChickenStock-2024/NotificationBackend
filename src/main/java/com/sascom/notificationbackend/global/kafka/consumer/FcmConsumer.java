@@ -1,6 +1,6 @@
 package com.sascom.notificationbackend.global.kafka.consumer;
 
-import com.sascom.notificationbackend.firebase.application.FirebaseMessageSender;
+import com.sascom.notificationbackend.firebase.application.FcmSender;
 import com.sascom.notificationbackend.global.dto.NotificationMessageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FcmConsumer {
 
-    private final FirebaseMessageSender fcmSender;
+    private final FcmSender fcmSender;
 
     @KafkaListener(
             topics = "${kafka.fcm-consumer.default-topic}",

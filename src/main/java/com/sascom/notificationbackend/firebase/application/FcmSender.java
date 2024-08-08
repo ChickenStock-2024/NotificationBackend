@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class FirebaseMessageSender implements MessageSender {
+public class FcmSender implements MessageSender {
 
     @Override
     public void sendMessage(String deviceToken, String title, String body) {

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-@DependsOn(value = "firebaseMessageSender")
+@DependsOn(value = "fcmSender")
 public class FirebaseInitializer {
 
     private final String fcmAdminJsonPath;

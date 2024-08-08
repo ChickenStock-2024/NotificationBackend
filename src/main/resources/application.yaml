@@ -1,8 +1,8 @@
 spring:
   application:
     name: NotificationBackend
-    config:
-      import: optional:file:.env[.properties]
+  config:
+    import: optional:file:.env[.properties]
 
   mail:
     host: ${EMAIL_HOST}

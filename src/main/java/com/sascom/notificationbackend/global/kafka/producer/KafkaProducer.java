@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.CompletableFuture;
 
 // KafkaProducer
 /* 바라보고 있는 kafka broker topic 메세지 발행 */
@@ -21,12 +24,26 @@ public class KafkaProducer {
     private final KafkaTemplate<String, NotificationMessageDto> kafkaTemplate;
 
     public void sendEmailMessageToKafka(NotificationMessageDto message) {
-        log.info("Producer Send Email Message : {}",message);
-        this.kafkaTemplate.send(emailConsumerProperties.defaultTopic(),message);
+        CompletableFuture<SendResult<String, NotificationMessageDto>> future = this.kafkaTemplate.send(emailConsumerProperties.defaultTopic(), message);
+
+        future.whenComplete((result, throwable) -> {
+            if (throwable == null) {
+                log.info("Producer Send Email Message: {}, offset: {}", result.getProducerRecord().value(), result.getRecordMetadata().offset());
+            } else {
+                log.error("Unable to send message: {}", message, throwable);
+            }
+        });
     }
 
     public void sendAlarmMessageToKafka(NotificationMessageDto message) {
-        log.info("Producer Send Alarm Message : {}",message);
-        this.kafkaTemplate.send(fcmConsumerProperties.defaultTopic(),message);
+        CompletableFuture<SendResult<String, NotificationMessageDto>> future = this.kafkaTemplate.send(fcmConsumerProperties.defaultTopic(), message);
+
+        future.whenComplete((result, throwable) -> {
+            if (throwable == null) {
+                log.info("Producer Send FCM: {}, offset: {}", result.getProducerRecord().value(), result.getRecordMetadata().offset());
+            } else {
+                log.error("Unable to send message: {}", message, throwable);
+            }
+        });
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Slf4j
@@ -26,9 +27,9 @@ public class FirebaseInitializer {
     @PostConstruct
     private void initialize() {
         try {
-            ClassPathResource classPathResource = new ClassPathResource(fcmAdminJsonPath);
+            FileInputStream classPathResource = new FileInputStream(fcmAdminJsonPath);
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(classPathResource.getInputStream()))
+                    .setCredentials(GoogleCredentials.fromStream(classPathResource))
                     .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
